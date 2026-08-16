@@ -1,0 +1,16 @@
+const express = require("express");
+const { protectAdmin } = require("../middleware/adminAuth");
+const { createProduct, getProducts, getAllProducts, getAdminProducts, getProductBySlug, updateProduct, deleteProduct, updateProductStatus, getProductStats, searchProducts } = require("../controllers/productController");
+const upload = require("../utils/upload");
+const router = express.Router();
+router.get("/", getProducts);
+router.get("/admin", protectAdmin, getAdminProducts);
+router.get("/stats", protectAdmin, getProductStats);
+router.get("/search", searchProducts);
+router.get("/slug/:slug", getProductBySlug);
+router.post("/", protectAdmin, upload.array("images", 5), createProduct);
+router.put("/:id", protectAdmin, updateProduct);
+router.patch("/:id/status", protectAdmin, updateProductStatus);
+router.delete("/:id", protectAdmin, deleteProduct);
+router.get("/all", getAllProducts);
+module.exports = router;

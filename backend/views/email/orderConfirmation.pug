@@ -1,0 +1,85 @@
+doctype html
+html
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title Adeshola - Order Confirmation
+    style.
+      body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f9f9f9;
+        padding: 20px;
+        color: #333;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background: #fff;
+        border-radius: 10px;
+        padding: 30px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      }
+      h1 {
+        color: #c49a6c;
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+      p {
+        font-size: 16px;
+        line-height: 1.5;
+      }
+      .order-summary {
+        margin: 20px 0;
+        border-top: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+        padding: 15px 0;
+      }
+      .order-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+      .total {
+        font-weight: bold;
+        font-size: 18px;
+        margin-top: 10px;
+      }
+      .btn {
+        display: inline-block;
+        margin-top: 20px;
+        background: #c49a6c;
+        color: #fff;
+        padding: 12px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+      }
+      .footer {
+        margin-top: 30px;
+        font-size: 14px;
+        text-align: center;
+        color: #777;
+      }
+
+  body
+    main.container
+      h1 Thank you for your order, #{firstName}!
+      p We’re excited to let you know that your order has been received and is now being processed.
+
+      .order-summary
+        h2 Order Summary
+        if order.items && order.items.length
+          each item in order.items
+            .order-item
+              span #{item.name} (x#{item.quantity})
+              span ₦#{item.price}
+          .total Total: ₦#{order.total}
+        else
+          p No items found in your order.
+
+      p You can expect another email once your order has been shipped.  
+
+      a.btn(href=order.trackingUrl aria-label="Track your order") Track Your Order
+
+      footer.footer
+        p Luxury Cosmetics © #{year}
+        p Thank you for shopping with us!

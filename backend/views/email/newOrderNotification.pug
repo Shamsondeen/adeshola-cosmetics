@@ -1,0 +1,131 @@
+doctype html
+html
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Order Confirmation - #{order && order._id ? order._id : 'N/A'}
+    style.
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 20px;
+      }
+      .container {
+        max-width: 600px;
+        margin: auto;
+        background: #ffffff;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      }
+      h1 {
+        color: #d32f2f;
+        font-size: 24px;
+        text-align: center;
+      }
+      p {
+        font-size: 14px;
+        color: #333;
+      }
+      .order-details {
+        margin: 20px 0;
+        padding: 15px;
+        background: #f4f4f4;
+        border-radius: 6px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+      }
+      table th, table td {
+        font-size: 14px;
+        padding: 10px;
+        border: 1px solid #eee;
+        text-align: left;
+      }
+      table th {
+        background: #f4f4f4;
+        font-weight: bold;
+      }
+      table tfoot td {
+        font-weight: bold;
+        background: #fafafa;
+      }
+      .cta {
+        display: block;
+        text-align: center;
+        margin: 20px 0;
+      }
+      .cta a {
+        background: #d32f2f;
+        color: #fff;
+        text-decoration: none;
+        padding: 12px 20px;
+        border-radius: 4px;
+        font-weight: bold;
+      }
+      .footer {
+        text-align: center;
+        font-size: 12px;
+        color: #888;
+        margin-top: 20px;
+      }
+  body
+    .container
+      - const formatCurrency = (num) => '₦' + (num || 0).toLocaleString()
+
+      h1 🎉 New Order Received!
+      p Hello Admin,
+      p A new order has been placed by 
+        strong #{user && user.name ? user.name : 'Unknown User'}
+        |  (#{user && user.email ? user.email : 'No email'}).
+      .order-details
+        p
+          strong Order ID: 
+          | #{order && order._id ? order._id : 'N/A'}
+        p
+          strong Status: 
+          | #{order && order.status ? order.status : 'N/A'}
+
+      p Here are the items in this order:
+
+      - var totalSubtotal = 0
+      table
+        thead
+          tr
+            th Product
+            th Quantity
+            th Unit Price
+            th Subtotal
+        tbody
+          each item in order.items
+            - var unitPrice = item && item.price ? item.price : 0
+            - var qty = item && item.quantity ? item.quantity : 0
+            - var subtotal = unitPrice * qty
+            - totalSubtotal += subtotal
+            tr
+              td #{item && item.product && item.product.name ? item.product.name : 'Unknown Product'}
+              td #{qty}
+              td #{formatCurrency(unitPrice)}
+              td #{formatCurrency(subtotal)}
+        tfoot
+          tr
+            td(colspan="3") Subtotal
+            td #{formatCurrency(totalSubtotal)}
+          tr
+            td(colspan="3") Shipping Fee
+            td #{formatCurrency(order && order.shippingFee ? order.shippingFee : 0)}
+          tr
+            td(colspan="3") Total
+            td #{formatCurrency(order && order.totalAmount ? order.totalAmount : totalSubtotal + (order && order.shippingFee ? order.shippingFee : 0))}
+
+      .cta
+        if order && order._id
+          a(href=`https://yourdomain.com/admin/orders/${order._id}`) View Order
+        else
+          p [Order link unavailable]
+
+      .footer
+        p © #{year} Your Company. All rights reserved.

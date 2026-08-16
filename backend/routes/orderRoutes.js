@@ -1,0 +1,16 @@
+const express = require("express");
+const { protect } = require("../middleware/userAuth");
+const { protectAdmin } = require("../middleware/adminAuth");
+const { getAllOrders, addOrderItems, confirmBankTransfer, updateOrderStatus, getOrderById, getMyOrders, initiatePayment, getMonthlySales, getAvailableYears, verifyPayment } = require("../controllers/orderController");
+const router = express.Router();
+router.post("/", protect, addOrderItems);
+router.get("/myorders", protect, getMyOrders);
+router.post("/:id/pay", protect, initiatePayment);
+router.post("/:id/confirm-bank-transfer", protect, confirmBankTransfer);
+router.get("/:id/verify-payment", verifyPayment);
+router.get("/:id", protect, getOrderById);
+router.get("/", protectAdmin, getAllOrders);
+router.patch("/:id/status", protectAdmin, updateOrderStatus);
+router.get("/sales/monthly", protectAdmin, getMonthlySales);
+router.get("/sales/years", protectAdmin, getAvailableYears);
+module.exports = router;

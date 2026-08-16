@@ -1,0 +1,51 @@
+doctype html
+html
+  head
+  meta(charset="UTF-8")
+  meta(name="viewport" content="width=device-width, initial-scale=1.0")
+  title Adeshola Cosmetics - Paymemt Confirmation
+    style.
+      body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f9f9f9;
+        padding: 20px;
+        color: #333;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background: #fff;
+        border-radius: 10px;
+        padding: 30px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      }
+      h1 {
+        color: #c49a6c;
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+      p {
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      .status { 
+        font-size: 18px; 
+        color: #d4af73; 
+        font-weight: bold; 
+      }
+      
+  body
+    .card
+      h2 Hello #{firstName},
+      p We wanted to update you about your order:
+      p
+        | <b>Order ID:</b> #{order._id.toString().slice(-6)}
+      p
+        | <b>Status:</b> 
+        span.status #{order.status}
+      p
+        | <b>Payment Status:</b> #{order.paymentStatus}
+      p Thank you for shopping with Luxury Cosmetics.
+      p If you have any questions, feel free to reply to this email.
+      p — The Luxury Cosmetics Team

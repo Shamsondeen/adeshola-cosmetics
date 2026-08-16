@@ -1,0 +1,212 @@
+/* =========================
+   Header Base Styles
+========================= */
+.header {
+  background-color: var(--light-color);
+  box-shadow: var(--box-shadow);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 1rem 0;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo a {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--secondary-color);
+  letter-spacing: 1px;
+}
+
+/* =========================
+   Desktop Navigation
+========================= */
+.main-nav ul {
+  display: flex;
+  gap: 2rem;
+}
+
+.main-nav a {
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  position: relative;
+}
+
+.main-nav a:hover {
+  color: var(--primary-color);
+}
+
+.main-nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary-color);
+  transition: var(--transition);
+}
+
+.main-nav a:hover::after {
+  width: 100%;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.cart-icon {
+  position: relative;
+  font-size: 1.2rem;
+}
+
+.cart-count {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background-color: var(--primary-color);
+  color: var(--light-color);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.7rem;
+}
+
+.login-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--primary-color);
+  border-radius: 4px;
+  transition: var(--transition);
+}
+
+.login-btn:hover {
+  background-color: var(--primary-color);
+  color: var(--light-color);
+}
+
+.user-dropdown {
+  position: relative;
+  cursor: pointer;
+}
+
+.user-greeting {
+  font-weight: 500;
+}
+
+.dropdown-content {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: var(--light-color);
+  box-shadow: var(--box-shadow);
+  border-radius: 4px;
+  padding: 0.5rem;
+  min-width: 150px;
+  display: none;
+}
+
+.user-dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content a,
+.dropdown-content button {
+  display: block;
+  padding: 0.5rem;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+.dropdown-content button:hover {
+  color: var(--primary-color);
+}
+
+/* =========================
+   Mobile Responsive Styles
+========================= */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background: var(--secondary-color);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Toggle Animation */
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Mobile Nav Drawer */
+@media (max-width: 768px) {
+  .main-nav {
+    position: fixed;
+    top: 70px; /* below header */
+    right: -100%;
+    width: 70%;
+    height: calc(100% - 70px);
+    background: var(--light-color);
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
+    transition: right 0.3s ease-in-out;
+    padding: 2rem;
+  }
+
+  .main-nav ul {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .main-nav.open {
+    right: 0;
+  }
+
+  .header-actions {
+    gap: 1rem;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo a {
+    font-size: 1.5rem;
+  }
+
+  .cart-count {
+    width: 18px;
+    height: 18px;
+    font-size: 0.65rem;
+  }
+}

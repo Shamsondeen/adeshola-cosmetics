@@ -1,0 +1,10 @@
+const express = require("express");
+const { getDashboardStats } = require("../controllers/adminController");
+const { loginAdmin, registerAdmin, getAdminProfile } = require("../controllers/authController");
+const { protectAdmin } = require("../middleware/adminAuth");
+const router = express.Router();
+router.post("/register", registerAdmin);
+router.post("/login", loginAdmin);
+router.get("/profile", protectAdmin, getAdminProfile);
+router.get("/stats", protectAdmin, getDashboardStats);
+module.exports = router;
